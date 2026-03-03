@@ -44,7 +44,7 @@ module.exports = {
       name: 'mfeHeader',
       filename: 'remoteEntry.js',
       exposes: { './Navbar': './src/components/Navbar' },
-      shared: { react: { singleton: true }, 'react-dom': { singleton: true } },
+      shared: { react: { singleton: true, requiredVersion: '^18.2.0' }, 'react-dom': { singleton: true, requiredVersion: '^18.2.0' } },
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
