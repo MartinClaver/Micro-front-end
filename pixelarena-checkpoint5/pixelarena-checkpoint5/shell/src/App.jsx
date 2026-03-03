@@ -5,7 +5,6 @@ const Header = lazy(() => import('mfeHeader/./Navbar'));
 const Lobby  = lazy(() => import('mfeLobby/./Lobby'));
 const Catalog = lazy(() => import('mfeCatalog/./Catalog'));
 
-// TODO: importer le Catalog depuis mfeCatalog
 
 function LoadingFallback({ name }) {
   return <div className="loading-fallback">Chargement {name}...</div>;
