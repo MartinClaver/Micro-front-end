@@ -6,12 +6,16 @@ function Cart() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    // TODO : écoute cart:add et ajoute chaque produit reçu au state items
-  }, []);
+    const unsubscribe = eventBus.on('cart:add', (newProduct) => {
+      setItems(prev => [...prev, newProduct]);
+    });
+    return () => unsubscribe();  }, []);
 
   useEffect(() => {
-    // TODO : notifie l'eventBus que le panier a changé
-    // L'événement doit contenir le nombre d'articles et le total
+    eventBus.emit('cart:updated', {
+      count: items.length,
+      total: items.reduce((sum, item) => sum + item.price, 0)
+    });    // L'événement doit contenir le nombre d'articles et le total
   }, [items]);
 
   const handleRemove = (cartId) => {
