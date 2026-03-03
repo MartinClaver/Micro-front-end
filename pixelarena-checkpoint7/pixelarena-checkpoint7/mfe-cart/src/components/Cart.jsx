@@ -6,16 +6,17 @@ function Cart() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = eventBus.on('cart:add', (newProduct) => {
-      setItems(prev => [...prev, newProduct]);
+    const unsubscribe = eventBus.on('cart:add', (product) => {
+      setItems(prev => [...prev, { ...product, cartId: Date.now() }]);
     });
-    return () => unsubscribe();  }, []);
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     eventBus.emit('cart:updated', {
       count: items.length,
-      total: items.reduce((sum, item) => sum + item.price, 0)
-    });    // L'événement doit contenir le nombre d'articles et le total
+      total: items.reduce((sum, item) => sum + item.price, 0),
+    });
   }, [items]);
 
   const handleRemove = (cartId) => {
